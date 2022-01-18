@@ -4,10 +4,6 @@
 
 (def speaking-minutes #{0 15 30 45})
 
-(defn get-current-time []
-  (. ZonedDateTime (now)))
-
-
 (defn sleep
   "sleep for n seconds"
   [n]
@@ -22,20 +18,18 @@
                  (f)
                  (sleep n)))))
 
-(def every-second (partial every-n-seconds 1))
-
 (defn check-and-say-time
   "check if it's time to say the time. If so, say it"
   []
-  (let [t (get-current-time)
-        m (.getMinute t)
-        is-speaking-minute? (speaking-minutes m)]
+  (let [time (. ZonedDateTime (now))
+        minute (.getMinute time)
+        is-speaking-minute? (contains? speaking-minutes minute)]
     (when is-speaking-minute?
-      (say-time t)
-      ; Sleep to avoid saying twice in the same minute
+      (say-time time)
+      ; Sleep to avoid speaking twice in the same minute
       (sleep 60))))
   
-
 (defn -main
   []
-  (every-second check-and-say-time))
+  (let [every-second (partial every-n-seconds 1)]
+    (every-second check-and-say-time)))
