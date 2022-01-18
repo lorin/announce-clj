@@ -1,12 +1,8 @@
 (ns announce.time
-  (:require [clojure.test :refer [is  with-test]])
+  (:require [clojure.test :refer [is with-test run-tests]])
   (:import java.time.ZonedDateTime)
   (:import java.time.ZoneId))
   
-
-(defn get-current-time []
-  (. ZonedDateTime (now)))
-
 (defn make-time
   "Given a 24-hour h and minute m, create a ZonedDateTime int he current time zone"
   [h m]
@@ -33,7 +29,6 @@
     (is (= {:hour 3 :min 30} (parse-time (make-time 15 30)))))
 
 
-(defn run-tests
-  [& _]
-  (test #'parse-time)
-  )
+(defn -main
+  []
+  (run-tests 'announce.time))

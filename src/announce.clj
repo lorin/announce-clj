@@ -1,8 +1,12 @@
 (ns announce
   (:require [announce.say :refer [say-time]])
-  (:require [announce.time :refer [get-current-time]]))
+  (:import java.time.ZonedDateTime))
 
 (def speaking-minutes #{0 15 30 45})
+
+(defn get-current-time []
+  (. ZonedDateTime (now)))
+
 
 (defn sleep
   "sleep for n seconds"
@@ -33,6 +37,5 @@
   
 
 (defn -main
-  [& _]
-  (every-second check-and-say-time)
-  )
+  []
+  (every-second check-and-say-time))

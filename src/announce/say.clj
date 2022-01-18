@@ -1,15 +1,15 @@
 (ns announce.say
   (:require [clojure.java.shell :refer [sh]])
   (:require [clojure.string :refer [join]])
-  (:require [clojure.test :refer [is with-test]])
+  (:require [clojure.test :refer [is with-test run-tests]])
   (:require [announce.time :refer [make-time parse-time]]))
 
+(def say-path "/usr/bin/say")
 
 (defn- say
   "speak the string s by invoking the external say program"
   [s]
-  (let [ex "/usr/bin/say"]
-    (sh ex s)))
+    (sh say-path s))
 
 
 (with-test
@@ -25,10 +25,10 @@
 
 
 (defn say-time
+  "speak the time t"
   [t]
   (-> t speaking-line say))
 
-(defn run-tests
-  [& _]
-  (test #'speaking-line)
-  )
+(defn -main
+  []
+  (run-tests 'announce.say))
