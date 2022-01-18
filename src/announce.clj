@@ -22,8 +22,7 @@
   "check if it's time to say the time. If so, say it"
   []
   (let [time (. ZonedDateTime (now))
-        minute (.getMinute time)
-        is-speaking-minute? (contains? speaking-minutes minute)]
+        is-speaking-minute? (->> time .getMinute (contains? speaking-minutes))]
     (when is-speaking-minute?
       (say-time time)
       ; Sleep to avoid speaking twice in the same minute
