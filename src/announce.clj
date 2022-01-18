@@ -23,7 +23,7 @@
   
    We sleep for an additional minute after saying the time to avoid saying it twice in the same minute."
   []
-  (let [time (. ZonedDateTime (now))
+  (let [time (ZonedDateTime/now)
         is-speaking-minute? (->> time .getMinute (contains? speaking-minutes))]
     (when is-speaking-minute?
       (say-time time)
