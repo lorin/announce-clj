@@ -1,13 +1,8 @@
 (ns announce
-  (:require [clojure.java.shell :refer [sh]])
+  (:require [announce.say :refer [say-time]])
+  (:require [announce.time :refer [get-current-time]]))
 
-
-#_{:clj-kondo/ignore [:unused-private-var]}
-(defn- say
-  "speak the string s by invoking the external say program"
-  [s]
-  (let [ex "/usr/bin/say"]
-    (sh ex s)))
+(def speaking-minutes #{0 15 30 45})
 
 (defn sleep
   "sleep for n seconds"
@@ -23,7 +18,22 @@
                  (f)
                  (sleep n)))))
 
+(def every-second (partial every-n-seconds 1))
+
+(defn check-and-say-time
+  "check if it's time to say the time. If so, say it"
+  []
+  (let [t (get-current-time)
+        m (.getMinute t)
+        is-speaking-minute? (speaking-minutes m)]
+    (when is-speaking-minute?
+      (say-time t)
+      ; Sleep to avoid saying twice in the same minute
+      (sleep 60))))
+  
+
 #_{:clj-kondo/ignore [:unused-private-var]}
 (defn- main
   [& _]
-  (every-n-seconds 5 (fn [] (println "hello"))))
+  (every-second check-and-say-time)
+  )

@@ -2,4 +2,4 @@
 
 Announces the time every 15 minutes.
 
-macOS only (depends on the "say" macOS program)
+macOS only, as it requires the macOS *say* program
