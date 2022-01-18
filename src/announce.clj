@@ -19,13 +19,14 @@
                  (sleep n)))))
 
 (defn check-and-say-time
-  "check if it's time to say the time. If so, say it"
+  "check if it's time to say the time. If so, say it.
+  
+   We sleep for an additional minute after saying the time to avoid saying it twice in the same minute."
   []
   (let [time (. ZonedDateTime (now))
         is-speaking-minute? (->> time .getMinute (contains? speaking-minutes))]
     (when is-speaking-minute?
       (say-time time)
-      ; Sleep to avoid speaking twice in the same minute
       (sleep 60))))
   
 (defn -main
