@@ -14,12 +14,14 @@
   
    Note that :hour is in 12-hour format"
     [t]
-    (let [h (.getHour t)
-          min (.getMinute t)]
-      {:hour h, :min min}))
+    (let [min (.getMinute t)
+          h (.getHour t)
+          hour (if (> h 12) (- h 12) h)]
+      {:hour hour, :min min}))
       (let [zone (. ZoneId (systemDefault))
             make-time (fn [h m] (. ZonedDateTime (of 2021 1 1 h m 0 0 zone)))]
-        (is (= {:hour 9 :min 45} (parse-time (make-time 9 45))))))
+        (is (= {:hour 9 :min 45} (parse-time (make-time 9 45))))
+        (is (= {:hour 3 :min 30} (parse-time (make-time 15 30))))))
 
 #_{:clj-kondo/ignore [:unused-private-var]}
 (defn- say
