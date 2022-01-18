@@ -1,4 +1,5 @@
-(ns announce)
+(ns announce
+  (:require [clojure.java.shell :refer [sh]]))
 
 (defn sleep
   "sleep for n seconds"
@@ -14,6 +15,11 @@
                  (f)
                  (sleep n)))))
 
+(defn say
+  "speak the string s by invoking the external say program"
+  [s]
+  (let [ex "/usr/bin/say"]
+    (sh ex s)))
 
 #_{:clj-kondo/ignore [:unused-private-var]}
 (defn- main
