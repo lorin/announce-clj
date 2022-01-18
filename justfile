@@ -1,5 +1,5 @@
 run:
-	clj -X announce/main
+	clj -M -m announce
 
 test:
 	clj -X announce.time/run-tests
