@@ -38,12 +38,12 @@
   (defn speaking-line
     "Given a ZonedDateTime t, return the string to say"
     [t]
-    (let [{:keys [hour min]} (parse-time t)]
-      (join " " ["It's" hour min])))
+    (let [{:keys [hour min]} (parse-time t)
+          m (if (= min 0) "o'clock" min)]
+      (join " " ["It's" hour m])))
   (is (= "It's 11 30" (speaking-line (make-time 11 30))))
   (is (= "It's 4 45" (speaking-line (make-time 16 45))))
-  (is (= "It's 10 o'clock" (speaking-line (make-time 10 0))))
-  )
+  (is (= "It's 10 o'clock" (speaking-line (make-time 10 0)))))
 
 #_{:clj-kondo/ignore [:unused-private-var]}
 (defn- say
