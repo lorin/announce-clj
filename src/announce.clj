@@ -32,8 +32,7 @@
       (sleep 60))))
   
 
-#_{:clj-kondo/ignore [:unused-private-var]}
-(defn- main
+(defn -main
   [& _]
   (every-second check-and-say-time)
   )
