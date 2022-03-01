@@ -2,7 +2,7 @@
   (:require [announce.say :refer [say-time]])
   (:import java.time.ZonedDateTime))
 
-(def speaking-minutes #{0 15 30 45})
+(def speaking-minutes #{0,15,30,45})
 
 (defn sleep
   "sleep for n seconds"
