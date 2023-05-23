@@ -3,7 +3,7 @@
   (:import (java.time ZonedDateTime ZoneId)))
   
 (defn make-time
-  "Given a 24-hour h and minute m, create a ZonedDateTime int he current time zone"
+  "Given a 24-hour h and minute m, create a ZonedDateTime in the current time zone"
   [h m]
   (let [zone (ZoneId/systemDefault)
         year 2021
