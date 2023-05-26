@@ -14,9 +14,10 @@
   "Execute f every n seconds"
   [n f]
   (dorun
-   (repeatedly (fn []
-                 (f)
-                 (sleep n)))))
+   (repeatedly
+    (fn []
+      (f)
+      (sleep n)))))
 
 (defn check-and-say-time
   "check if it's time to say the time. If so, say it.
